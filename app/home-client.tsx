@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArticleMeta } from '@/lib/articles';
 
@@ -25,24 +26,22 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
     <main className="min-h-screen bg-bone text-ink">
       {/* Hero Section */}
       <section className="relative border-b-4 border-ink overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="https://www.pexels.com/download/video/36487933/" type="video/mp4" />
-        </video>
+        {/* Hero Background */}
+        <Image
+          src="/home/hero.jpg"
+          alt="bg-hero"
+          fill
+          priority
+          className="object-cover"
+        />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/40 to-black/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/90 via-black/50 to-black/10" />
 
         {/* Content */}
 
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-25">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-30">
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,19 +51,19 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
             {/* Top label row */}
             <div className="flex gap-2 mb-4 flex-wrap items-center justify-between">
               <div className="inline-block bg-brutal text-ink px-3 py-1">
-                <span className="font-extrabold text-bone text-xs tracking-widest">EST. 2025</span>
+                <span className="font-extrabold text-white text-xs tracking-widest">EST. 2025</span>
               </div>
             </div>
 
             {/* Massive headline */}
-            <h1 className="text-8xl sm:text-7xl lg:text-9xl leading-[0.92] mb-8 uppercase tracking-widest font-extrabold text-bone">
+            <h1 className="text-5xl sm:text-7xl lg:text-9xl leading-[0.92] mb-8 uppercase tracking-widest font-extrabold text-white">
               I build<br />
               the{' '}
               {/* Wrapper untuk kata "whole" */}
-              <span className="relative inline-block px-3 text-bone -rotate-6">
+              <span className="relative inline-block px-3 -rotate-6">
 
                 {/* Background kotak "whole" */}
-                <span className="absolute inset-x-0 -bottom-3 md:-bottom-8 -top-3 md:-top-8 bg-brutal -rotate-" />
+                <span className="absolute inset-x-0 -bottom-3 md:-bottom-8 -top-3 md:-top-8 bg-brutal " />
 
                 {/* Teks "whole" */}
                 <span className="relative z-10">whole</span>
@@ -77,10 +76,10 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
 
 
             {/* Bottom row: tagline + CTA */}
-            <div className="flex items-end justify-between mt-8 gap-6 flex-wrap">
+            <div className="flex items-center justify-between mt-8 gap-6 flex-wrap">
 
-              <div className="inline-block text-brutal px-3 py-1 text-3xl">
-                <span className='font-extralight '>
+              <div className="inline-block text-brutal px-3 py-1 text-xl ">
+                <span className='font-extralight'>
                   FENDRY
                 </span>
                 {" "}
@@ -88,9 +87,9 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
                   TONRATE
                 </span>
 
-                <p className="text-mono sm:text-lg max-w-md leading-snug text-bone">
+                {/* <p className="text-mono sm:text-lg max-w-md leading-snug text-bone">
                   Frontend, backend, the boring parts in between. No fluff, just shipping.
-                </p>
+                </p> */}
 
               </div>
 

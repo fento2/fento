@@ -3,7 +3,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface MobileSidebarProps {
     isOpen: boolean;
@@ -18,6 +19,8 @@ export function MobileSidebar({
     navigationLinks,
     children,
 }: MobileSidebarProps) {
+    const pathname = usePathname();
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -49,11 +52,17 @@ export function MobileSidebar({
                                     key={link.href}
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
                                     transition={{ delay: index * 0.05 }}
                                 >
                                     <Link
                                         href={link.href}
-                                        className="block px-4 py-3 rounded-lg text-base font-syne font-semibold text-foreground hover:bg-accent hover:text-accent-foreground active:bg-accent/80 transition-all duration-200"
+                                        className={cn(
+                                            "block px-4 py-3 text-xs font-black tracking-tight transition-colors duration-100",
+                                            pathname === link.href
+                                                ? "bg-accent text-accent-foreground"
+                                                : "text-foreground hover:bg-accent/20"
+                                        )}
                                         onClick={onClose}
                                     >
                                         {link.label}
@@ -68,6 +77,7 @@ export function MobileSidebar({
                                 className="px-4 py-6 border-t border-border mt-6"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 transition={{ delay: 0.3 }}
                             >
                                 <p className="text-xs font-syne font-semibold text-muted-foreground mb-3">THEME</p>

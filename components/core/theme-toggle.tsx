@@ -4,12 +4,18 @@ import * as React from "react"
 import { Sun, Moon, Monitor } from "lucide-react"
 import { useTheme } from "next-themes"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { cn } from "@/lib/utils"
 
-export function ThemeToggle() {
+type Props = {
+    // true hanya saat navbar transparan di atas hero gelap (belum di-scroll)
+    transparent?: boolean
+}
+
+export function ThemeToggle({ transparent = false }: Props) {
     const { theme, setTheme } = useTheme()
     const [mounted, setMounted] = React.useState(false)
 
-    React.useLayoutEffect(() => {
+    React.useEffect(() => {
         setMounted(true)
     }, [])
 
@@ -28,16 +34,22 @@ export function ThemeToggle() {
             type="single"
             value={theme || "system"}
             onValueChange={setTheme}
-            className="text-white"
         >
             {themes.map((t) => {
                 const Icon = t.icon
+                const isActive = (theme || "system") === t.value
                 return (
                     <ToggleGroupItem
                         key={t.value}
                         value={t.value}
                         aria-label={`${t.label} theme`}
                         title={`${t.label} theme`}
+                        className={cn(
+                            transparent
+                                ? "text-white! hover:text-white!"
+                                : "text-foreground! hover:text-foreground!",
+                            isActive && (transparent ? "bg-white/20!" : "bg-accent/15!")
+                        )}
                     >
                         <Icon size={16} />
                     </ToggleGroupItem>

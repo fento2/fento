@@ -2,9 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-bone: #f4f0e8;
   --color-ink: #0f0f0f;
+  --color-cream: #f4f0e8;
+  --color-pitch: #0f0f0f;
   --color-brutal: #ff4d1c;
   --color-mid: #525252;
   --color-edge: #0f0f0f;
@@ -25,6 +29,14 @@
   --color-card-foreground: #0f0f0f;
   --color-popover: #ffffff;
   --color-popover-foreground: #0f0f0f;
+  --color-success: #10b981;
+  --color-success-foreground: #ffffff;
+  --color-warning: #f59e0b;
+  --color-warning-foreground: #ffffff;
+  --color-error: #ef4444;
+  --color-error-foreground: #ffffff;
+  --color-info: #3b82f6;
+  --color-info-foreground: #ffffff;
   --radius: 0px;
 }
 
@@ -46,13 +58,21 @@
     --color-muted-foreground: #a3a3a3;
     --color-accent: #ff5a2b;
     --color-accent-foreground: #0a0a0a;
-    --color-border: #ededed;
+    --color-border: #2a2a2a;
     --color-input: #1a1a1a;
     --color-ring: #ff5a2b;
     --color-card: #1a1a1a;
     --color-card-foreground: #ededed;
     --color-popover: #1a1a1a;
     --color-popover-foreground: #ededed;
+    --color-success: #34d399;
+    --color-success-foreground: #0a0a0a;
+    --color-warning: #fbbf24;
+    --color-warning-foreground: #0a0a0a;
+    --color-error: #f87171;
+    --color-error-foreground: #0a0a0a;
+    --color-info: #60a5fa;
+    --color-info-foreground: #0a0a0a;
   }
 
   * {
@@ -61,8 +81,8 @@
   }
 
   body {
-    background-color: var(--color-bone);
-    color: var(--color-ink);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     transition: background-color 200ms ease, color 200ms ease;
   }
 
