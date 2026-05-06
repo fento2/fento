@@ -1,0 +1,77 @@
+---
+title: "Building a Regional API for Indonesia"
+date: "2025-01-15"
+category: "DEV"
+readingTime: "6 min"
+excerpt: "How I built a Node/Express API covering Indonesian regional data, handling data normalization, and deploying at scale."
+---
+
+# Building a Regional API for Indonesia
+
+The challenge was clear: Indonesia has 34 provinces, 514 regencies, 7,000+ villages, and zero unified, well-structured API. Government data was scattered across PDFs, outdated spreadsheets, and siloed databases. So I built one.
+
+## The Problem
+
+Every project that touches Indonesian geography faces the same friction:
+- Data is locked in government archives or private corporate databases
+- No standardized structure — province names change, municipality codes conflict
+- Developers waste weeks normalizing, validating, and reconciling sources
+- Coordinates are missing or wildly inaccurate
+
+> Borders tell stories. A good API tells them straight.
+
+## The Solution
+
+I built a Node.js + Express REST API with PostgreSQL as the source of truth. The stack was brutally simple: no ORM overhead, no GraphQL complexity — just SQL and JSON.
+
+### Architecture
+
+```javascript
+// Just rows and columns
+const provinces = await db.query(
+  'SELECT id, name, code, centroid FROM provinces'
+);
+
+const regencies = await db.query(
+  `SELECT id, name, code, province_id, centroid 
+   FROM regencies 
+   WHERE province_id = $1`,
+  [provinceId]
+);
+```
+
+No abstraction layers. No magic. The data model mirrors reality, and the API reflects the model.
+
+### Data Normalization
+
+The hard part was the source data. I:
+- Cross-referenced 5 government sources + Wikipedia
+- Wrote scripts to validate geographic coordinates (cross-check with OSM, eliminate outliers)
+- Normalized naming conventions (Kota vs. Kabupaten prefixes, diacritic handling)
+- Built a conflict-resolution ruleset (priority: latest official source → crowdsourced corrections → manual override)
+
+## Performance
+
+With 7,000+ records and nested queries, I needed to be smart about caching:
+
+- PostgreSQL partial indexes on active provinces/regencies
+- HTTP caching headers (ETag, Last-Modified) to leverage browser/CDN cache
+- Single query depth limit (province → regencies, no recursive village calls)
+
+No N+1 queries. No bloated responses. Just the data you ask for.
+
+> Sometimes the best optimization is removing the layer that causes the problem.
+
+## The Result
+
+- 99.98% uptime (deployed on a $20/mo DigitalOcean droplet)
+- < 50ms response time on average
+- Used by 12+ projects covering logistics, civic tech, and government reporting
+
+## What I Learned
+
+1. **Boring data deserves boring tools.** No framework can solve a data quality problem.
+2. **Normalize once, use forever.** Spend the upfront effort on data integrity; the API is trivial after.
+3. **Coordinates are not negotiable.** A 1km error in village centroid breaks routing entirely.
+
+The API is live and public. Any project needing Indonesian administrative boundaries can call it. No login. No rate limit. Just reliable data.

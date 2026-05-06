@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme {
+  --color-bone: #f4f0e8;
+  --color-ink: #0f0f0f;
+  --color-brutal: #ff4d1c;
+  --color-mid: #525252;
+  --color-edge: #0f0f0f;
+  --color-background: #f4f0e8;
+  --color-foreground: #0f0f0f;
+  --color-primary: #ff4d1c;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #0f0f0f;
+  --color-secondary-foreground: #f4f0e8;
+  --color-muted: #e8e4dc;
+  --color-muted-foreground: #525252;
+  --color-accent: #ff4d1c;
+  --color-accent-foreground: #ffffff;
+  --color-border: #0f0f0f;
+  --color-input: #ffffff;
+  --color-ring: #ff4d1c;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f0f0f;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f0f0f;
+  --radius: 0px;
+}
+
+@layer base {
+  /* DARK MODE — industrial night. Override theme tokens directly. */
+  .dark {
+    --color-bone: #0a0a0a;
+    --color-ink: #ededed;
+    --color-brutal: #ff5a2b;
+    --color-mid: #a3a3a3;
+    --color-edge: #ededed;
+    --color-background: #0a0a0a;
+    --color-foreground: #ededed;
+    --color-primary: #ff5a2b;
+    --color-primary-foreground: #0a0a0a;
+    --color-secondary: #ededed;
+    --color-secondary-foreground: #0a0a0a;
+    --color-muted: #1a1a1a;
+    --color-muted-foreground: #a3a3a3;
+    --color-accent: #ff5a2b;
+    --color-accent-foreground: #0a0a0a;
+    --color-border: #ededed;
+    --color-input: #1a1a1a;
+    --color-ring: #ff5a2b;
+    --color-card: #1a1a1a;
+    --color-card-foreground: #ededed;
+    --color-popover: #1a1a1a;
+    --color-popover-foreground: #ededed;
+  }
+
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  html {
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-helvetica {
+    font-family: 'Helvetica Neue', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+  }
+}
