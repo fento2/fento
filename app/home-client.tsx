@@ -4,7 +4,131 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { HeroCarousel } from '@/components/core/hero-carousel';
+import { HeroSlideShell } from '@/components/core/hero-slide-shell';
 import { ArticleMeta } from '@/lib/articles';
+
+// Tambah slide baru = tambah <> ... </> di array ini. HTML/JSX bebas, termasuk background-nya.
+const heroSlides = [
+  // ─── Slide 1 ──────────────────────────────────────────────────────────────
+  <HeroSlideShell
+    slideNumber="01"
+    label="INTRO"
+    marker="INDEX.HTML"
+    background={
+      <Image
+        src="/home/hero.jpg"
+        alt="bg-hero"
+        fill
+        priority
+        className="object-cover"
+      />
+    }
+  >
+    <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-20 lg:py-30 flex-1 flex items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full"
+      >
+        <div className="flex gap-2 mb-4 flex-wrap items-center justify-between">
+          <div className="inline-block bg-brutal text-ink px-3 py-1">
+            <span className="font-extrabold text-white text-xs tracking-widest">EST. 2025</span>
+          </div>
+        </div>
+
+        <h1 className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.92] mb-8 uppercase tracking-tight sm:tracking-wide lg:tracking-widest font-extrabold text-white wrap-break-word">
+          I build<br />
+          the{' '}
+          <span className="relative inline-block px-2 sm:px-3 -rotate-6">
+            <span className="absolute inset-x-0 -bottom-2 -top-2 sm:-bottom-3 sm:-top-3 md:-bottom-8 md:-top-8 bg-brutal" />
+            <span className="relative z-10">whole</span>
+          </span>
+          <br />
+          <span className="relative z-40">damn thing.</span>
+        </h1>
+
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-8 gap-6">
+          <div className="text-brutal text-lg sm:text-xl max-w-md">
+            <div className="leading-tight">
+              <span className="font-extralight">FENDRY</span>{' '}
+              <span className="font-extrabold">TONRATE</span>
+            </div>
+            <p className="font-mono text-xs sm:text-sm leading-snug text-bone mt-2">
+              Frontend, backend, the boring parts in between. No fluff, just shipping.
+            </p>
+          </div>
+
+          <Link href="/project" className="shrink-0">
+            <Button className="font-helvetica text-sm h-auto py-4 px-6 bg-white text-black hover:bg-brutal hover:text-white rounded-none tracking-wider transition-colors duration-100">
+              SEE THE WORK ↓
+            </Button>
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  </HeroSlideShell>,
+
+  // ─── Slide 2 ──────────────────────────────────────────────────────────────
+  <HeroSlideShell
+    slideNumber="02"
+    label="JOURNAL"
+    marker="NOTES.LOG"
+    overlayClassName="absolute inset-0 z-1 bg-linear-to-tl from-black/95 via-black/60 to-black/10 pointer-events-none"
+    background={
+      <video
+        src="/home/hero.mp4"
+        muted
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    }
+  >
+    {/* Konten utama — align kanan-bawah */}
+    <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-20 lg:py-30 flex-1 flex items-end justify-end">
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full sm:max-w-2xl text-right"
+      >
+        {/* Tagline DI ATAS headline (kebalik dari slide 1) */}
+        <p className="font-mono text-xs sm:text-sm leading-snug text-bone/80 mb-6 sm:ml-auto sm:max-w-sm">
+          → Lessons, rants, and the parts no tutorial covers.
+          <br />
+          Written between commits.
+        </p>
+
+        {/* Headline — italic + underline brutal, bukan kotak miring */}
+        <h1 className="font-helvetica italic text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 lowercase tracking-tighter font-black text-white">
+          notes from{' '}
+          <span className="relative inline-block">
+            <span className="relative z-10">the build</span>
+            <span className="absolute left-0 right-0 bottom-1 sm:bottom-2 h-2 sm:h-3 bg-brutal -z-0" />
+          </span>
+          <br />
+          <span className="text-brutal not-italic font-extralight tracking-widest text-2xl sm:text-3xl md:text-4xl uppercase">
+            — what i ship & why.
+          </span>
+        </h1>
+
+        {/* Button outline + arrow icon, di kanan-bawah */}
+        <div className="flex justify-end items-center gap-4">
+          <span className="font-mono text-[10px] tracking-widest text-bone/50 hidden sm:block">
+            /articles
+          </span>
+          <Link href="/articles" className="shrink-0">
+            <Button className="font-helvetica text-sm h-auto py-4 px-6 bg-transparent text-white border-2 border-white hover:bg-brutal hover:border-brutal hover:text-white rounded-none tracking-wider transition-colors duration-100">
+              READ THE JOURNAL ↗
+            </Button>
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  </HeroSlideShell>,
+];
 
 interface Project {
   number: string;
@@ -25,109 +149,38 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
   return (
     <main className="min-h-screen bg-bone text-ink">
       {/* Hero Section */}
-      <section className="relative border-b-4 border-ink overflow-hidden">
-        {/* Hero Background */}
-        <Image
-          src="/home/hero.jpg"
-          alt="bg-hero"
-          fill
-          priority
-          className="object-cover"
-        />
+      <section className="relative overflow-hidden bg-ink">
+        {/* Hero Carousel — background + foreground content per slide. Edit `heroSlides` above. */}
+        <HeroCarousel slides={heroSlides} className="h-screen" autoplayDelay={10000} />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/90 via-black/50 to-black/10" />
+        {/* Full-width separator between Hero and Stats */}
+        <div className="relative z-10 w-full h-2 bg-ink" />
 
-        {/* Content */}
-
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-30">
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* Top label row */}
-            <div className="flex gap-2 mb-4 flex-wrap items-center justify-between">
-              <div className="inline-block bg-brutal text-ink px-3 py-1">
-                <span className="font-extrabold text-white text-xs tracking-widest">EST. 2025</span>
-              </div>
-            </div>
-
-            {/* Massive headline */}
-            <h1 className="text-5xl sm:text-7xl lg:text-9xl leading-[0.92] mb-8 uppercase tracking-widest font-extrabold text-white">
-              I build<br />
-              the{' '}
-              {/* Wrapper untuk kata "whole" */}
-              <span className="relative inline-block px-3 -rotate-6">
-
-                {/* Background kotak "whole" */}
-                <span className="absolute inset-x-0 -bottom-3 md:-bottom-8 -top-3 md:-top-8 bg-brutal " />
-
-                {/* Teks "whole" */}
-                <span className="relative z-10">whole</span>
-
-              </span>
-              <br />
-
-              <span className="relative z-40">damn thing.</span>
-            </h1>
-
-
-            {/* Bottom row: tagline + CTA */}
-            <div className="flex items-center justify-between mt-8 gap-6 flex-wrap">
-
-              <div className="inline-block text-brutal px-3 py-1 text-xl ">
-                <span className='font-extralight'>
-                  FENDRY
-                </span>
-                {" "}
-                <span className='font-extrabold'>
-                  TONRATE
-                </span>
-
-                {/* <p className="text-mono sm:text-lg max-w-md leading-snug text-bone">
-                  Frontend, backend, the boring parts in between. No fluff, just shipping.
-                </p> */}
-
-              </div>
-
-              <Link href="/project">
-                <Button className="font-helvetica text-sm h-auto py-4 px-6 bg-bone text-ink hover:bg-brutal hover:text-bone rounded-none tracking-wider transition-colors duration-100">
-                  SEE THE WORK ↓
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-
+        {/* Stats strip — pinned to bottom of hero viewport */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative z-10 grid grid-cols-2 sm:grid-cols-4 bg-ink text-bone"
+        >
+          <div className="px-6 py-5 border-r border-bone/20">
+            <div className="font-helvetica text-4xl leading-none">14+</div>
+            <div className="font-helvetica text-[10px] tracking-widest mt-2">PROJECTS</div>
+          </div>
+          <div className="px-6 py-5 sm:border-r border-bone/20">
+            <div className="font-helvetica text-4xl leading-none">∞</div>
+            <div className="font-helvetica text-[10px] tracking-widest mt-2">COFFEE</div>
+          </div>
+          <div className="px-6 py-5 border-r border-bone/20 border-t sm:border-t-0">
+            <div className="font-helvetica text-4xl leading-none text-brutal">100%</div>
+            <div className="font-helvetica text-[10px] tracking-widest mt-2">SHIP RATE</div>
+          </div>
+          <div className="px-6 py-5 border-t sm:border-t-0">
+            <div className="font-helvetica text-4xl leading-none">2025</div>
+            <div className="font-helvetica text-[10px] tracking-widest mt-2">SINCE</div>
+          </div>
+        </motion.div>
       </section>
-
-      {/* Stats strip */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="grid grid-cols-2 sm:grid-cols-4 bg-ink text-bone"
-      >
-        <div className="px-6 py-5 border-r border-bone/20">
-          <div className="font-helvetica text-4xl leading-none">14+</div>
-          <div className="font-helvetica text-[10px] tracking-widest mt-2">PROJECTS</div>
-        </div>
-        <div className="px-6 py-5 sm:border-r border-bone/20">
-          <div className="font-helvetica text-4xl leading-none">∞</div>
-          <div className="font-helvetica text-[10px] tracking-widest mt-2">COFFEE</div>
-        </div>
-        <div className="px-6 py-5 border-r border-bone/20 border-t sm:border-t-0">
-          <div className="font-helvetica text-4xl leading-none text-brutal">100%</div>
-          <div className="font-helvetica text-[10px] tracking-widest mt-2">SHIP RATE</div>
-        </div>
-        <div className="px-6 py-5 border-t sm:border-t-0">
-          <div className="font-helvetica text-4xl leading-none">2025</div>
-          <div className="font-helvetica text-[10px] tracking-widest mt-2">SINCE</div>
-        </div>
-      </motion.div>
 
       {/* Featured Projects Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-bone">

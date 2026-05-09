@@ -21,6 +21,9 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  const isTransparent = isHome && !isScrolled && !isOpen;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -30,15 +33,15 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={cn("fixed w-full top-0 z-50 bg-background md:bg-transparent transition-colors duration-200", {
-        "bg-background!": isScrolled,
-        "bg-transparent!": !isScrolled && !isOpen,
+      <nav className={cn("fixed w-full top-0 z-50 transition-colors duration-200", {
+        "bg-transparent! md:bg-transparent": isTransparent,
+        "bg-background": !isTransparent,
       })}>
         <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           {/* Left - Logo */}
           <Link href="/" className="shrink-0">
             <Logo size="md" className={cn({
-              "text-white md:text-white": !isScrolled && !isOpen
+              "text-white md:text-white": isTransparent
             })} />
           </Link>
 
@@ -52,14 +55,14 @@ export function Navbar() {
                   href={item.href}
                   className={cn(
                     "px-4 py-2 text-xs font-black tracking-tight transition-colors duration-100",
-                    // Warna teks: putih saat transparan, foreground saat scrolled
-                    isScrolled ? "text-foreground" : "text-white",
+                    // Warna teks: putih saat transparan, foreground saat solid
+                    isTransparent ? "text-white" : "text-foreground",
                     // Hover
-                    isScrolled ? "hover:bg-accent hover:text-accent-foreground" : "hover:bg-white/15",
+                    isTransparent ? "hover:bg-white/15" : "hover:bg-accent hover:text-accent-foreground",
                     // Active
-                    isActive && (isScrolled
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-white/20 text-white"
+                    isActive && (isTransparent
+                      ? "bg-white/20 text-white"
+                      : "bg-accent text-accent-foreground"
                     )
                   )}
                 >
@@ -72,7 +75,7 @@ export function Navbar() {
           {/* Right - Theme Toggle & Mobile Menu */}
           <div className="flex items-center gap-4 shrink-0">
             <div className="hidden md:block">
-              <ThemeToggle transparent={!isScrolled} />
+              <ThemeToggle transparent={isTransparent} />
             </div>
 
             {/* Mobile Hamburger */}
@@ -80,9 +83,9 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className={cn(
                 "md:hidden w-11 h-11 border-[1.5px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-brutal transition-colors duration-200",
-                isScrolled
-                  ? "border-border bg-background"
-                  : "border-white/50 bg-white/10"
+                isTransparent
+                  ? "border-white/50 bg-white/10"
+                  : "border-border bg-background"
               )}
               aria-label="Menu"
             >
@@ -91,7 +94,7 @@ export function Navbar() {
                 <motion.div
                   animate={isOpen ? { rotate: 45, y: 5.5 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className={cn("w-4 h-[1.5px]", isScrolled ? "bg-foreground" : "bg-white", {
+                  className={cn("w-4 h-[1.5px]", isTransparent ? "bg-white" : "bg-foreground", {
                     "w-7": isOpen
                   })}
                 />
@@ -99,13 +102,13 @@ export function Navbar() {
                 <motion.div
                   animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className={cn("w-4 h-[1.5px]", isScrolled ? "bg-foreground" : "bg-white")}
+                  className={cn("w-4 h-[1.5px]", isTransparent ? "bg-white" : "bg-foreground")}
                 />
                 {/* Bottom line */}
                 <motion.div
                   animate={isOpen ? { rotate: -45, y: -5.5 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.3 }}
-                  className={cn("w-4 h-[1.5px]", isScrolled ? "bg-foreground" : "bg-white", {
+                  className={cn("w-4 h-[1.5px]", isTransparent ? "bg-white" : "bg-foreground", {
                     "w-7": isOpen
                   })}
                 />

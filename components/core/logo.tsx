@@ -1,5 +1,5 @@
 interface LogoProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
   className?: string;
 }
 
@@ -8,6 +8,13 @@ export function Logo({ size = 'md', className = '' }: LogoProps) {
     sm: { width: 24, height: 21 },
     md: { width: 48, height: 42 },
     lg: { width: 96, height: 84 },
+    xl: { width: 144, height: 126 },
+    '2xl': { width: 192, height: 168 },
+    '3xl': { width: 240, height: 210 },
+    '4xl': { width: 288, height: 252 },
+    '5xl': { width: 336, height: 294 },
+    '6xl': { width: 384, height: 336 },
+    '7xl': { width: 480, height: 420 },
   };
 
   const { width, height } = sizeMap[size];
