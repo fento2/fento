@@ -43,21 +43,21 @@
 @layer base {
   /* DARK MODE — industrial night. Override theme tokens directly. */
   .dark {
-    --color-bone: #0a0a0a;
+    --color-bone: #000000;
     --color-ink: #ededed;
     --color-brutal: #ff5a2b;
     --color-mid: #a3a3a3;
     --color-edge: #ededed;
-    --color-background: #0a0a0a;
+    --color-background: #000000;
     --color-foreground: #ededed;
     --color-primary: #ff5a2b;
-    --color-primary-foreground: #0a0a0a;
+    --color-primary-foreground: #000000;
     --color-secondary: #ededed;
-    --color-secondary-foreground: #0a0a0a;
+    --color-secondary-foreground: #000000;
     --color-muted: #1a1a1a;
     --color-muted-foreground: #a3a3a3;
     --color-accent: #ff5a2b;
-    --color-accent-foreground: #0a0a0a;
+    --color-accent-foreground: #000000;
     --color-border: #2a2a2a;
     --color-input: #1a1a1a;
     --color-ring: #ff5a2b;
@@ -66,13 +66,13 @@
     --color-popover: #1a1a1a;
     --color-popover-foreground: #ededed;
     --color-success: #34d399;
-    --color-success-foreground: #0a0a0a;
+    --color-success-foreground: #000000;
     --color-warning: #fbbf24;
-    --color-warning-foreground: #0a0a0a;
+    --color-warning-foreground: #000000;
     --color-error: #f87171;
-    --color-error-foreground: #0a0a0a;
+    --color-error-foreground: #000000;
     --color-info: #60a5fa;
-    --color-info-foreground: #0a0a0a;
+    --color-info-foreground: #000000;
   }
 
   * {
