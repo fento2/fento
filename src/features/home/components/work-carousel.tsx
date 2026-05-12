@@ -52,14 +52,13 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
             <div ref={emblaRef} className="overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8">
                 <div className="flex gap-4 px-4 sm:px-6 lg:px-8">
                     {projects.map((project, idx) => {
-                        const Wrapper = project.href ? Link : 'div';
-                        return (
-                            <Wrapper
+                        return project.href ? (
+                            <Link
                                 key={idx}
-                                {...(project.href ? { href: project.href } : {})}
+                                href={project.href}
                                 className={cn(
                                     'relative flex-[0_0_80%] sm:flex-[0_0_55%] lg:flex-[0_0_38%]',
-                                    'aspect-[3/4] overflow-hidden border-4 border-ink group cursor-pointer',
+                                    'aspect-3/4 overflow-hidden border-4 border-ink group cursor-pointer',
                                     'select-none'
                                 )}
                             >
@@ -106,7 +105,53 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                                         <span className="text-xl leading-none group-hover:translate-x-1 transition-transform duration-150">→</span>
                                     </div>
                                 </div>
-                            </Wrapper>
+                            </Link>
+                        ) : (
+                            <div
+                                key={idx}
+                                className={cn(
+                                    'relative flex-[0_0_80%] sm:flex-[0_0_55%] lg:flex-[0_0_38%]',
+                                    'aspect-3/4 overflow-hidden border-4 border-ink group cursor-pointer',
+                                    'select-none'
+                                )}
+                            >
+                                {project.bgVideo ? (
+                                    <video
+                                        src={project.bgVideo}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                ) : project.bg ? (
+                                    <Image
+                                        src={project.bg}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 55vw, 38vw"
+                                    />
+                                ) : (
+                                    <div className="absolute inset-0 bg-ink" />
+                                )}
+                                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/10 z-10" />
+                                <div className="absolute top-4 left-4 z-20 bg-brutal px-2 py-0.5 font-mono text-xs text-white tracking-widest">
+                                    {project.number}
+                                </div>
+                                <div className="absolute bottom-0 left-0 right-0 z-20 p-5 sm:p-6">
+                                    <p className="font-mono text-[10px] tracking-widest text-white/60 uppercase mb-2">
+                                        {project.tech}
+                                    </p>
+                                    <h3 className="font-helvetica text-2xl sm:text-3xl font-extrabold uppercase leading-none text-white tracking-tight mb-4">
+                                        {project.title}
+                                    </h3>
+                                    <div className="flex items-center gap-2 text-brutal font-helvetica text-sm tracking-wider font-bold uppercase">
+                                        VIEW PROJECT
+                                        <span className="text-xl leading-none group-hover:translate-x-1 transition-transform duration-150">→</span>
+                                    </div>
+                                </div>
+                            </div>
                         );
                     })}
                 </div>
