@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-const contentDir = path.join(process.cwd(), 'content', 'articles');
+const contentDir = path.join("src", "content", "articles");
 
 export interface ArticleMeta {
   slug: string;
@@ -18,22 +18,27 @@ export interface Article extends ArticleMeta {
 }
 
 export function getAllArticles(): ArticleMeta[] {
-  const files = fs.readdirSync(contentDir).filter((file) => file.endsWith('.mdx'));
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+  const files = fs
+    .readdirSync(contentDir)
+    .filter((file) => file.endsWith(".mdx"));
 
   const articles = files
     .map((file) => {
-      const slug = file.replace('.mdx', '');
+      const slug = file.replace(".mdx", "");
       const fullPath = path.join(contentDir, file);
-      const fileContent = fs.readFileSync(fullPath, 'utf-8');
+      const fileContent = fs.readFileSync(fullPath, "utf-8");
       const { data } = matter(fileContent);
 
       return {
         slug,
-        title: data.title || '',
-        date: data.date || '',
-        category: data.category || '',
-        readingTime: data.readingTime || '',
-        excerpt: data.excerpt || '',
+        title: data.title || "",
+        date: data.date || "",
+        category: data.category || "",
+        readingTime: data.readingTime || "",
+        excerpt: data.excerpt || "",
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -44,16 +49,16 @@ export function getAllArticles(): ArticleMeta[] {
 export function getArticleBySlug(slug: string): Article | null {
   try {
     const fullPath = path.join(contentDir, `${slug}.mdx`);
-    const fileContent = fs.readFileSync(fullPath, 'utf-8');
+    const fileContent = fs.readFileSync(fullPath, "utf-8");
     const { data, content } = matter(fileContent);
 
     return {
       slug,
-      title: data.title || '',
-      date: data.date || '',
-      category: data.category || '',
-      readingTime: data.readingTime || '',
-      excerpt: data.excerpt || '',
+      title: data.title || "",
+      date: data.date || "",
+      category: data.category || "",
+      readingTime: data.readingTime || "",
+      excerpt: data.excerpt || "",
       content,
     };
   } catch {

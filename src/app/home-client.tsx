@@ -294,34 +294,7 @@ export function HomeClient({ projects, articles }: HomeClientProps) {
           </motion.div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-ink text-bone border-t-4 border-ink">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <span className="font-helvetica text-xs tracking-widest uppercase mb-4 block text-brutal">
-              ★ 005 / CONNECT
-            </span>
-            <h2 className="font-helvetica text-5xl sm:text-6xl lg:text-7xl mb-6 tracking-tighter uppercase leading-[0.92]">
-              Let's Work<br />
-              <span className="bg-brutal text-bone px-3 inline-block">Together</span>
-            </h2>
-            <p className="text-base sm:text-lg mb-12 opacity-70 max-w-md mx-auto">
-              Got a project in mind? Let's build something brutal together.
-            </p>
-
-            <Link href="/contact">
-              <Button className="font-helvetica text-sm h-auto py-4 px-8 bg-brutal text-bone hover:bg-bone hover:text-ink rounded-none tracking-wider transition-colors duration-100">
-                TRANSMIT MESSAGE ↗
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
     </main>
   );
 }
+
