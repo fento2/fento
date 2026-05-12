@@ -1,10 +1,10 @@
 'use client';
 
+import { Footer } from '@/components/core/footer';
+import { Navbar } from '@/components/core/navbar';
 import { ThemeProvider } from 'next-themes';
-import { Navbar } from './core/navbar';
-import { Footer } from './core/footer';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Navbar />

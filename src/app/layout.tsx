@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { generateMetadata } from "@/lib/metadata";
-import { Providers } from "@/components/providers";
+import { AppProvider } from "@/providers/AppProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -30,23 +29,10 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <Script id="theme-script" strategy="beforeInteractive">
-          {`
-            try {
-              const theme = localStorage.getItem('theme') || 'system';
-              if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-              }
-            } catch (e) {}
-          `}
-        </Script>
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Providers>
+        <AppProvider>
           {children}
-
-        </Providers>
+        </AppProvider>
       </body>
     </html>
   );

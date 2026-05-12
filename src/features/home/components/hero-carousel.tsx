@@ -23,7 +23,7 @@ export function HeroCarousel({
     [
       Fade(),
       ...(autoplayDelay > 0
-        ? [Autoplay({ delay: autoplayDelay, stopOnInteraction: false })]
+        ? [Autoplay({ delay: autoplayDelay, stopOnInteraction: true })]
         : []),
     ]
   );
@@ -78,6 +78,7 @@ export function HeroCarousel({
             {slide}
           </div>
         ))}
+
       </div>
     </div>
   );

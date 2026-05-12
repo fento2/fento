@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { type ReactNode } from 'react';
 
 interface HeroSlideShellProps {
@@ -15,14 +16,7 @@ interface HeroSlideShellProps {
   children: ReactNode;
 }
 
-/**
- * Bungkus tiap slide hero. Otomatis render:
- *  - background (image/video) yang kamu pass
- *  - overlay gradient gelap
- *  - label vertikal pojok kanan-atas: "● SLIDE_XX / {label}"
- *  - marker pojok kiri-bawah: "[XX] — {marker}"
- *  - konten utama (children) di tengah
- */
+
 export function HeroSlideShell({
   slideNumber,
   label,
@@ -35,16 +29,14 @@ export function HeroSlideShell({
     <>
       {background}
 
-      {overlayClassName ? <div className={overlayClassName} /> : null}
+      {overlayClassName ? <div className={cn(overlayClassName)} /> : null}
 
-      {/* Vertical label — pojok kanan atas (responsive, theme-safe) */}
       <div className="absolute top-20 right-3 sm:right-10 z-10">
-        <span className="block font-mono text-[9px] sm:text-[10px] tracking-[0.3em] sm:tracking-[0.4em] text-white/70 [writing-mode:vertical-rl] rotate-180">
-          <span className="text-brutal">●</span> SLIDE_{slideNumber} / {label}
+        <span className="flex justify-center items-center gap-4 font-mono text-[9px] sm:text-[10px] tracking-[0.3em] sm:tracking-[0.4em] text-white/70 [writing-mode:vertical-rl] rotate-180">
+          <div className="bg-brutal w-2 h-2 rounded-full" /> SLIDE_{slideNumber} / {label}
         </span>
       </div>
 
-      {/* Marker — pojok kiri bawah */}
       <div className="absolute bottom-4 left-3 sm:bottom-8 sm:left-10 z-10">
         <div className="font-mono text-[9px] sm:text-[10px] tracking-widest text-white/60">
           <span className="text-brutal">[</span>

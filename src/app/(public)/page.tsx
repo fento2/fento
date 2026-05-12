@@ -1,28 +1,26 @@
+import { HomePage } from '@/features/home/page/homePage';
 import { getAllArticles } from '@/lib/articles';
-import { HomeClient } from './home-client';
+import type { WorkProject } from '@/features/home/components/work-carousel';
 
-const projects = [
+const projects: WorkProject[] = [
   {
     number: '01',
     title: 'Indonesia Region API',
     tech: 'NODE · EXPRESS · PRISMA · POSTGRES',
-    bgColor: 'bg-brutal',
-    textColor: 'text-ink',
-    numberBg: 'bg-bone',
+    href: '/project',
+    bg: '/home/hero.jpg',
   },
   {
     number: '02',
     title: 'Hotel Site Redesign',
     tech: 'NEXT · REACT · TAILWIND',
-    bgColor: 'bg-bone',
-    textColor: 'text-ink',
-    numberBg: 'bg-ink',
-    numberText: 'text-bone',
+    href: '/project',
+    bgVideo: '/home/hero.mp4',
   },
 ];
 
 export default function Home() {
   const articles = getAllArticles().slice(0, 2);
 
-  return <HomeClient projects={projects} articles={articles} />;
+  return <HomePage projects={projects} articles={articles} />;
 }

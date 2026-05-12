@@ -54,8 +54,7 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "px-4 py-2 text-xs font-black tracking-tight transition-colors duration-100",
-                    // Warna teks: putih saat transparan, foreground saat solid
+                    "px-4 py-2 text-xs font-black  tracking-tight transition-colors duration-100",
                     isTransparent ? "text-white" : "text-foreground",
                     // Hover
                     isTransparent ? "hover:bg-white/15" : "hover:bg-accent hover:text-accent-foreground",
