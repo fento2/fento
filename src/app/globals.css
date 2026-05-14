@@ -6,10 +6,13 @@
 
 @theme {
   --color-bone: #f4f0e8;
-  --color-ink: #000000;
+  --color-ink: #0f0f0f;
   --color-cream: #f4f0e8;
   --color-pitch: #0f0f0f;
   --color-brutal: #ff4d1c;
+  --color-volt: #2563eb;
+  --color-sun: #ffd60a;
+  --color-cyan: #00d4ff;
   --color-mid: #525252;
   --color-edge: #0f0f0f;
   --color-background: #f4f0e8;
@@ -46,6 +49,9 @@
     --color-bone: #000000;
     --color-ink: #ededed;
     --color-brutal: #ff5a2b;
+    --color-volt: #3b82f6;
+    --color-sun: #ffd60a;
+    --color-cyan: #22d3ee;
     --color-mid: #a3a3a3;
     --color-edge: #ededed;
     --color-background: #000000;
